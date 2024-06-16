@@ -1,8 +1,7 @@
 import {ImageSource, Loader} from 'excalibur';
 
 const Resources = {
-    Mole: new ImageSource('images/mole.png'),
-    DirtPile: new ImageSource('images/dirt-pile.png'),
+    Mia: new ImageSource('../../public/images/Mia.png'),
 };
 
 const ResourceLoader = new Loader();
