@@ -1,5 +1,5 @@
 import { Actor, Vector, Input, Random } from 'excalibur';
-import { Resources } from './resources.mjs';
+import { Resources } from './resources.js';
 
 class NPC extends Actor {
     constructor(x, y) {

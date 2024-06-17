@@ -1,6 +1,6 @@
 import {DisplayMode, Engine } from 'excalibur';
-import { Resources, ResourceLoader } from './resources.mjs';
-import { MainCharacter } from './MainCharacter';
+import { Resources, ResourceLoader } from './resources.js';
+import { Player } from './Player.js';
 import { NPC } from './npc';
 
 export class Game extends Engine {
@@ -18,7 +18,7 @@ export class Game extends Engine {
         console.log('Game initialized');
 
         // Initialize the player
-        const player = new MainCharacter(this.drawWidth / 2, this.drawHeight / 2);
+        const player = new Player(this.drawWidth / 2, this.drawHeight / 2);
         console.log('Player created');
         this.add(player);
 
