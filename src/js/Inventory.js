@@ -1,4 +1,4 @@
-import { Actor, Vector, Color, Circle, CollisionType } from 'excalibur';
+import { Actor, Vector, Color, CollisionType } from 'excalibur';
 
 class ItemActor extends Actor {
     constructor(item, x, y) {
@@ -67,4 +67,28 @@ class Inventory {
     }
 }
 
-export { Item, Helmet, Gun, Inventory, ItemActor };
+class Bullet extends Actor {
+    constructor(x, y, direction) {
+        super({
+            pos: new Vector(x, y),
+            width: 10,
+            height: 10,
+            color: Color.Yellow,
+            collisionType: CollisionType.Passive
+        });
+        this.vel = direction.scale(300); // Adjust bullet speed as needed
+    }
+
+    onInitialize(engine) {
+        this.engine = engine;
+    }
+
+    onPreUpdate(engine, delta) {
+        // Remove the bullet if it goes off screen
+        if (this.pos.x < 0 || this.pos.x > engine.drawWidth || this.pos.y < 0 || this.pos.y > engine.drawHeight) {
+            this.kill();
+        }
+    }
+}
+
+export { Item, Helmet, Gun, Inventory, ItemActor, Bullet };
