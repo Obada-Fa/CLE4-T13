@@ -1,15 +1,18 @@
-import { Actor, Vector, Animation, SpriteSheet, Color } from 'excalibur';
+import { Actor, Vector, Animation, SpriteSheet, Color, CollisionType, Shape } from 'excalibur';
 import { Resources } from './resources.js';
+import { Bullet } from './Inventory.js'; // Ensure you import the Bullet class
 
 class Boss extends Actor {
     constructor(x, y) {
         super({
             pos: new Vector(x, y),
             width: 80,
-            height: 80
+            height: 768,
+            collisionType: CollisionType.Active
         });
         this.scale = new Vector(0.5, 0.5);
-        
+        this.z = 2;
+
         const bossSheet = SpriteSheet.fromImageSource({
             image: Resources.Boss,
             grid: {
@@ -33,29 +36,35 @@ class Boss extends Actor {
 
     onInitialize(engine) {
         this.engine = engine;
+
+        // Listen for collision events with bullets
+        this.on('collisionstart', (evt) => {
+            if (evt.other instanceof Bullet) {
+                this.takeDamage(10); // Assume each bullet does 10 damage
+                evt.other.kill(); // Destroy the bullet
+                console.log(this.currentHealth);
+            }
+        });
     }
 
     onPreUpdate(engine, delta) {
-        // Ensure health bar position updates with the boss
-        this.updateHealthBar();
     }
 
     takeDamage(amount) {
         this.currentHealth = Math.max(0, this.currentHealth - amount);
-    }
-
-    updateHealthBar() {
-        // Logic to ensure health bar position and values are up-to-date
+        if (this.currentHealth <= 0) {
+            this.kill(); // Remove the boss if health is depleted
+        }
     }
 
     draw(ctx) {
         super.draw(ctx);
 
         // Draw the health bar
-        const healthBarWidth = 50; // Adjusted width for visibility
-        const healthBarHeight = 5; // Adjusted height for visibility
+        const healthBarWidth = 100;
+        const healthBarHeight = 10;
         const healthBarX = this.pos.x - healthBarWidth / 2;
-        const healthBarY = this.pos.y - this.height / 2 - 10; // Position above the boss
+        const healthBarY = this.pos.y - this.height / 2 - 20; // Position above the boss
 
         // Draw the background (red)
         ctx.fillStyle = 'red';

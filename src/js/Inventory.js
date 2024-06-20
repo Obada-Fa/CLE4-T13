@@ -77,6 +77,7 @@ class Bullet extends Actor {
             collisionType: CollisionType.Passive
         });
         this.vel = direction.scale(300); // Adjust bullet speed as needed
+        this.z = 1;
     }
 
     onInitialize(engine) {
