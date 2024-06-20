@@ -1,4 +1,4 @@
-import { Actor, Vector, Input, Animation, SpriteSheet, CollisionType, Shape, Color } from 'excalibur';
+import { Actor, Vector, Input, Animation, SpriteSheet, CollisionType, Shape } from 'excalibur';
 import { Resources } from './resources.js';
 import { Inventory, ItemActor, Gun, Bullet } from './Inventory.js';
 
@@ -6,7 +6,7 @@ class Player extends Actor {
     constructor(x, y) {
         super({
             pos: new Vector(x, y),
-            collisionType: CollisionType.Active,
+            collisionType: CollisionType.Active, // Ensure the player has an active collision type
             width: 300,
             height: 316
         });

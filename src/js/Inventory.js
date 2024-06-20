@@ -1,15 +1,29 @@
-import { Actor, Vector, Color, CollisionType } from 'excalibur';
+import { Actor, Vector, Color, CollisionType, Shape, Circle } from 'excalibur';
+import { Resources } from './resources.js';
 
 class ItemActor extends Actor {
     constructor(item, x, y) {
         super({
             pos: new Vector(x, y),
-            radius: 20,
-            color: item instanceof Helmet ? Color.Green : Color.Red,
-            collisionType: CollisionType.Passive, // Passive collision type for items
+            collisionType: CollisionType.Passive // Passive collision type for items
         });
 
         this.item = item;
+
+        // Set the appearance and collision shape for the item
+        if (item instanceof Helmet) {
+            const helmetSprite = Resources.Helmet.toSprite();
+            helmetSprite.scale = new Vector(0.2, 0.2);
+            this.graphics.use(helmetSprite);
+            this.collider.set(Shape.Box(helmetSprite.width * helmetSprite.scale.x, helmetSprite.height * helmetSprite.scale.y));
+        } else if (item instanceof Gun) {
+            const gunCircle = new Circle({
+                radius: 10,
+                color: Color.Red
+            });
+            this.graphics.use(gunCircle);
+            this.collider.set(Shape.Circle(10));
+        }
     }
 }
 
@@ -93,3 +107,5 @@ class Bullet extends Actor {
 }
 
 export { Item, Helmet, Gun, Inventory, ItemActor, Bullet };
+
+
