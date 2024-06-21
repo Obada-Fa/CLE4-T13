@@ -1,9 +1,7 @@
-import { DisplayMode, Engine } from 'excalibur';
+import { Engine, DisplayMode, TileMap, Tile, Color, vec } from 'excalibur';
 import { Resources, ResourceLoader } from './resources.js';
+import { loadTilemap } from './tilemapLoader.js';
 import { Player } from './Player.js';
-import { Helmet, Gun, ItemActor } from './Inventory.js';
-import { Boss } from './boss.js';
-import { NPC } from './npc';
 
 export class Game extends Engine {
     constructor() {
@@ -13,29 +11,44 @@ export class Game extends Engine {
             displayMode: DisplayMode.FitScreen
         });
 
-        this.start(ResourceLoader)
+        this.start(ResourceLoader).then(() => this.onInitialize());
     }
 
-    onInitialize() {
-        console.log('Game onInitialize called');
+    async onInitialize() {
+        // Load the tilemap data
+        const tilemapData = await loadTilemap('../../public/map/CLE-Games-Tilemap.tmx');
+
+        // Create a TileMap instance
+        const tilemap = new TileMap({
+            pos: vec(0, 0),
+            cellWidth: tilemapData.tileWidth,
+            cellHeight: tilemapData.tileHeight,
+            rows: tilemapData.height,
+            cols: tilemapData.width
+        });
+
+        // Add tiles to the TileMap
+        for (let row = 0; row < tilemapData.height; row++) {
+            for (let col = 0; col < tilemapData.width; col++) {
+                const tileIndex = tilemapData.tiles[row * tilemapData.width + col];
+                if (tileIndex > 0) {
+                    const tile = new Tile({
+                        x: col * tilemapData.tileWidth,
+                        y: row * tilemapData.tileHeight,
+                        width: tilemapData.tileWidth,
+                        height: tilemapData.tileHeight
+                    });
+                    const tileGraphic = Resources.TilledDirt.toSprite(); // Create a sprite from the image
+                    tile.addGraphic(tileGraphic);
+                    tilemap.addTile(tile);
+                }
+            }
+        }
+
+        this.add(tilemap);
+
         const player = new Player(this.drawWidth / 2, this.drawHeight / 2);
         this.add(player);
-
-        // Spawn a single boss monster at a random location
-        const bossX = Math.random() * this.drawWidth;
-        const bossY = Math.random() * this.drawHeight;
-        const boss = new Boss(bossX, bossY);
-        this.add(boss);
-
-        // Spawn items randomly around the map
-        const helmet = new Helmet('Steel Helmet', 10);
-        const gun = new Gun('Laser Gun', 50);
-
-        const helmetActor = helmet.toActor(Math.random() * this.drawWidth, Math.random() * this.drawHeight);
-        const gunActor = gun.toActor(Math.random() * this.drawWidth, Math.random() * this.drawHeight);
-
-        this.add(helmetActor);
-        this.add(gunActor);
     }
 }
 
