@@ -17,16 +17,16 @@ class MapScene extends Scene {
         this.add(map);
 
         // Define map boundaries
-        const minX = 0;
-        const minY = 0;
-        const maxX = map.width;
-        const maxY = map.height;
+        const minX = -1000;
+        const minY = -1000;
+        const maxX = 2625;
+        const maxY = 1683;
 
         // Spawn the player
         const player = new Player(engine.drawWidth / 2, engine.drawHeight / 2, minX, minY, maxX, maxY);
         this.add(player);
 
-        // Adjust camera to follow the player and ensure the map edges are visible
+        // Adjust camera to follow the player
         engine.currentScene.camera.strategy.lockToActor(player);
         engine.currentScene.camera.strategy.elasticToActor(player, 0.5, 0.5);
 
@@ -35,7 +35,7 @@ class MapScene extends Scene {
             left: minX + engine.drawWidth / 2,
             right: maxX - engine.drawWidth / 2,
             top: minY + engine.drawHeight / 2,
-            bottom: maxY - engine.drawHeight / 2
+            bottom: 0,
         });
 
         // Adjust the camera zoom level based on the map size and screen size

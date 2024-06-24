@@ -7,8 +7,8 @@ class Player extends Actor {
         super({
             pos: new Vector(x, y),
             collisionType: CollisionType.Active, // Ensure the player has an active collision type
-            width: 150,
-            height: 158
+            width: 300,
+            height: 316
         });
 
         // Define the sprite sheet
@@ -22,7 +22,7 @@ class Player extends Actor {
             }
         });
 
-        this.scale = new Vector(0.4, 0.4);
+        this.scale = new Vector(0.5, 0.5);
 
         // Create animations
         this.animations = {
@@ -84,22 +84,22 @@ class Player extends Actor {
         let moving = false;
 
         if (engine.input.keyboard.isHeld(Input.Keys.W) || engine.input.keyboard.isHeld(Input.Keys.ArrowUp)) {
-            this.vel.y = -100;
+            this.vel.y = -400;
             moving = true;
             this.facingDirection = 'up';
         } 
         if (engine.input.keyboard.isHeld(Input.Keys.S) || engine.input.keyboard.isHeld(Input.Keys.ArrowDown)) {
-            this.vel.y = 100;
+            this.vel.y = 400;
             moving = true;
             this.facingDirection = 'down';
         } 
         if (engine.input.keyboard.isHeld(Input.Keys.A) || engine.input.keyboard.isHeld(Input.Keys.ArrowLeft)) {
-            this.vel.x = -100;
+            this.vel.x = -400;
             moving = true;
             this.facingDirection = 'left';
         } 
         if (engine.input.keyboard.isHeld(Input.Keys.D) || engine.input.keyboard.isHeld(Input.Keys.ArrowRight)) {
-            this.vel.x = 100;
+            this.vel.x = 400;
             moving = true;
             this.facingDirection = 'right';
         } 
@@ -117,8 +117,10 @@ class Player extends Actor {
         }
 
         // Update position with boundary checks
-        const newX = Math.max(this.minX + this.width / 2, Math.min(this.maxX - this.width / 2, this.pos.x + this.vel.x * delta / 1000));
-        const newY = Math.max(this.minY + this.height / 2, Math.min(this.maxY - this.height / 2, this.pos.y + this.vel.y * delta / 1000));
+        const halfWidth = this.width * this.scale.x / 2;
+        const halfHeight = this.height * this.scale.y / 2;
+        const newX = Math.max(this.minX + halfWidth, Math.min(this.maxX - halfWidth, this.pos.x + this.vel.x * delta / 1000));
+        const newY = Math.max(this.minY + halfHeight, Math.min(this.maxY - halfHeight, this.pos.y + this.vel.y * delta / 1000));
         
         this.pos.setTo(newX, newY);
     }

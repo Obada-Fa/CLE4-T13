@@ -1,4 +1,4 @@
-import { DisplayMode, Engine } from 'excalibur';
+import { DisplayMode, Engine, Color } from 'excalibur';
 import { Resources, ResourceLoader } from './resources.js';
 import { MapScene } from './mapScene.js';
 
@@ -7,7 +7,8 @@ class Game extends Engine {
         super({
             width: 1440,
             height: 760,
-            displayMode: DisplayMode.FitScreen
+            displayMode: DisplayMode.FitScreen,
+            backgroundColor: Color.fromHex('#edcda7')
         });
 
         this.start(ResourceLoader).then(() => this.goToScene('map'));
