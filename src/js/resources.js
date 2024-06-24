@@ -2,7 +2,6 @@ import { ImageSource, Loader } from "excalibur";
 import { Helmet } from "./Inventory";
 
 const Resources = {
-<<<<<<< HEAD
   Mia: new ImageSource("/images/Mia.png"),
   Player: new ImageSource("/images/Spritesheet_player.png"),
   Boss: new ImageSource("/images/Trash_monster_spritesheet.png"),
@@ -15,14 +14,6 @@ const Resources = {
   PurpleTable: new ImageSource("/map/purpletable.png"),
   RedTable: new ImageSource("/map/redtable.png"),
   Tree: new ImageSource("/map/tree.png"),
-=======
-    Mia: new ImageSource('/images/Mia.png'),
-    Player: new ImageSource('/images/Spritesheet_player.png'),
-    Boss: new ImageSource('/images/Trash_monster_spritesheet.png'),
-    Helmet: new ImageSource('/images/helmet.png'),
-    Map: new ImageSource('/map/map.png'),
-    Sewer: new ImageSource('/images/sewerBG.png'),
->>>>>>> 54be398f75c1b9ce41ba5ffe2e4a82214299796a
 };
 
 const ResourceLoader = new Loader();
