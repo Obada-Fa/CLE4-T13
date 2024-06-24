@@ -17,10 +17,10 @@ class MapScene extends Scene {
         this.add(map);
 
         // Define map boundaries
-        const minX = -1000;
-        const minY = -1000;
-        const maxX = 2625;
-        const maxY = 1683;
+        const minX = -50;
+        const minY = -150;
+        const maxX = 1600;
+        const maxY = 1000;
 
         // Spawn the player
         const player = new Player(engine.drawWidth / 2, engine.drawHeight / 2, minX, minY, maxX, maxY);
@@ -35,13 +35,13 @@ class MapScene extends Scene {
             left: minX + engine.drawWidth / 2,
             right: maxX - engine.drawWidth / 2,
             top: minY + engine.drawHeight / 2,
-            bottom: 0,
+            bottom: maxY - engine.drawHeight / 2,
         });
 
         // Adjust the camera zoom level based on the map size and screen size
         const zoomX = engine.drawWidth / map.width;
         const zoomY = engine.drawHeight / map.height;
-        const zoom = Math.min(zoomX, zoomY) * 3; // Adjust the multiplier as needed
+        const zoom = Math.min(zoomX, zoomY) * 7; // Adjust the multiplier as needed
 
         engine.currentScene.camera.zoom = zoom;
     }
