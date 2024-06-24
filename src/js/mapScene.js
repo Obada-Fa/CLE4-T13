@@ -55,7 +55,8 @@ class MapScene extends Scene {
 
     // Add map decorations
     const benchPositions = [
-      { x: 1200, y: 1100 },
+      { x: 590, y: 1100 },
+      { x: 1150, y: 1100 },
       { x: 1025, y: 1100 },
       { x: 850, y: 1100 },
       { x: 1000, y: 925 },
