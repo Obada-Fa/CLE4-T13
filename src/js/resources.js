@@ -7,6 +7,7 @@ const Resources = {
     Boss: new ImageSource('/images/Trash_monster_spritesheet.png'),
     Helmet: new ImageSource('/images/helmet.png'),
     Map: new ImageSource('/map/map.png'),
+    Sewer: new ImageSource('/images/sewerBG.png'),
 };
 
 const ResourceLoader = new Loader();

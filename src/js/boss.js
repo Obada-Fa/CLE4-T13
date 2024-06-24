@@ -10,7 +10,7 @@ class Boss extends Actor {
             height: 350,
             collisionType: CollisionType.Active
         });
-        this.scale = new Vector(0.5, 0.5);
+        this.scale = new Vector(0.2, 0.2);
         this.z = 2;
 
         const bossSheet = SpriteSheet.fromImageSource({
