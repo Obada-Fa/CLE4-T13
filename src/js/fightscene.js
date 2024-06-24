@@ -1,4 +1,4 @@
-import { Scene, Vector } from 'excalibur';
+import { Scene, Vector, Actor } from 'excalibur';
 import { Player } from './Player.js';
 import { Healthbar } from './healthbar.js';
 
@@ -11,6 +11,9 @@ class FightScene extends Scene {
     }
 
     onInitialize(engine) {
+        // Setup the background (can be overridden by subclasses)
+        this.setupBackground(engine);
+
         // Spawn the player
         const player = new Player(this.playerStartPos.x, this.playerStartPos.y, -Infinity, -Infinity, Infinity, Infinity);
         this.add(player);
@@ -37,6 +40,10 @@ class FightScene extends Scene {
             player.healthBar.setHealth(player.currentHealth);
             enemy.healthBar.setHealth(enemy.currentHealth / enemy.maxHealth); // Scale the health bar for the enemy
         }, 100);
+    }
+
+    setupBackground(engine) {
+        // This can be overridden by subclasses to set up specific backgrounds
     }
 
     onActivate(ctx) {

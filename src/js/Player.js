@@ -48,6 +48,8 @@ class Player extends Actor {
         this.currentHealth = this.maxHealth;
         this.healthBar = new Healthbar(this.game); // Initialize Healthbar
         this.addChild(this.healthBar); // Add health bar as a child to the player
+
+        this.isInFightScene = false; // Flag to check if player is in fighting scene
     }
 
     onInitialize(engine) {
@@ -78,11 +80,20 @@ class Player extends Actor {
 
         let moving = false;
 
-        if (engine.input.keyboard.isHeld(Input.Keys.W) || engine.input.keyboard.isHeld(Input.Keys.ArrowUp)) {
-            this.vel.y = -400;
-            moving = true;
-            this.facingDirection = 'up';
+        if (this.isInFightScene) {
+            if (engine.input.keyboard.isHeld(Input.Keys.W)) {
+                this.vel.y = -600; // Jump
+                moving = true;
+                this.facingDirection = 'up';
+            }
+        } else {
+            if (engine.input.keyboard.isHeld(Input.Keys.W) || engine.input.keyboard.isHeld(Input.Keys.ArrowUp)) {
+                this.vel.y = -400;
+                moving = true;
+                this.facingDirection = 'up';
+            }
         }
+
         if (engine.input.keyboard.isHeld(Input.Keys.S) || engine.input.keyboard.isHeld(Input.Keys.ArrowDown)) {
             this.vel.y = 400;
             moving = true;
@@ -105,18 +116,26 @@ class Player extends Actor {
         }
 
         // Update health bar position
-        this.healthBar.pos = new Vector(0, -this.height * this.scale.y / 2 - 10); // Position above the player
+        if (this.healthBar) {
+            this.healthBar.pos = new Vector(0, -this.height * this.scale.y / 2 - 10); // Position above the player
+        }
     }
 
     _updateAnimation() {
-        if (this.facingDirection === 'left') {
-            this.graphics.use(this.animations.left);
-        } else if (this.facingDirection === 'right') {
-            this.graphics.use(this.animations.right);
-        } else if (this.facingDirection === 'up') {
-            this.graphics.use(this.animations.up);
-        } else if (this.facingDirection === 'down') {
-            this.graphics.use(this.animations.down);
+        if (this.isInFightScene) {
+            if (this.facingDirection === 'left' || this.facingDirection === 'right') {
+                this.graphics.use(this.animations.left); // Use left animation for jumping
+            }
+        } else {
+            if (this.facingDirection === 'left') {
+                this.graphics.use(this.animations.left);
+            } else if (this.facingDirection === 'right') {
+                this.graphics.use(this.animations.right);
+            } else if (this.facingDirection === 'up') {
+                this.graphics.use(this.animations.up);
+            } else if (this.facingDirection === 'down') {
+                this.graphics.use(this.animations.down);
+            }
         }
     }
 
