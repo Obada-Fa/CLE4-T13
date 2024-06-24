@@ -33,3 +33,47 @@ export class LimeTable extends MapContents {
     this.graphics.use(Resources.LimeTable.toSprite());
   }
 }
+
+export class PinkTable extends MapContents {
+  constructor(x, y) {
+    super(x, y);
+  }
+
+  onInitialize(engine) {
+    super.onInitialize(engine);
+    this.graphics.use(Resources.PinkTable.toSprite());
+  }
+}
+
+export class PurpleTable extends MapContents {
+  constructor(x, y) {
+    super(x, y);
+  }
+
+  onInitialize(engine) {
+    super.onInitialize(engine);
+    this.graphics.use(Resources.PurpleTable.toSprite());
+  }
+}
+
+export class RedTable extends MapContents {
+  constructor(x, y) {
+    super(x, y);
+  }
+
+  onInitialize(engine) {
+    super.onInitialize(engine);
+    this.graphics.use(Resources.RedTable.toSprite());
+  }
+}
+
+export class Tree extends MapContents {
+  constructor(x, y) {
+    super(x, y);
+  }
+
+  onInitialize(engine) {
+    super.onInitialize(engine);
+    this.graphics.use(Resources.Tree.toSprite());
+  }
+}
