@@ -6,8 +6,8 @@ class Boss extends Actor {
     constructor(x, y) {
         super({
             pos: new Vector(x, y),
-            width: 80,
-            height: 768,
+            width: 200,
+            height: 350,
             collisionType: CollisionType.Active
         });
         this.scale = new Vector(0.5, 0.5);

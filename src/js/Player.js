@@ -3,12 +3,12 @@ import { Resources } from './resources.js';
 import { Inventory, ItemActor, Gun, Bullet } from './Inventory.js';
 
 class Player extends Actor {
-    constructor(x, y) {
+    constructor(x, y, minX, minY, maxX, maxY) {
         super({
             pos: new Vector(x, y),
             collisionType: CollisionType.Active, // Ensure the player has an active collision type
-            width: 300,
-            height: 316
+            width: 150,
+            height: 158
         });
 
         // Define the sprite sheet
@@ -22,7 +22,7 @@ class Player extends Actor {
             }
         });
 
-        this.scale = new Vector(0.5, 0.5);
+        this.scale = new Vector(0.4, 0.4);
 
         // Create animations
         this.animations = {
@@ -49,10 +49,19 @@ class Player extends Actor {
 
         // Define the collision shape for the player
         this.collider.set(Shape.Box(this.width, this.height));
+
+        // Define the map boundaries
+        this.minX = minX;
+        this.minY = minY;
+        this.maxX = maxX;
+        this.maxY = maxY;
     }
 
     onInitialize(engine) {
         this.engine = engine;
+
+        // Set the camera to follow the player
+        engine.currentScene.camera.strategy.lockToActor(this);
 
         // Listen for collision events
         this.on('collisionstart', (evt) => {
@@ -106,6 +115,12 @@ class Player extends Actor {
                 this.graphics.use(this.animations.down);
             }
         }
+
+        // Update position with boundary checks
+        const newX = Math.max(this.minX + this.width / 2, Math.min(this.maxX - this.width / 2, this.pos.x + this.vel.x * delta / 1000));
+        const newY = Math.max(this.minY + this.height / 2, Math.min(this.maxY - this.height / 2, this.pos.y + this.vel.y * delta / 1000));
+        
+        this.pos.setTo(newX, newY);
     }
 
     collectItem(itemActor) {

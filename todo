@@ -1,0 +1,3 @@
+restrict player from walking out of the map
+restrict camera to the edges of the map
+stop the animation while the player is not moving 
