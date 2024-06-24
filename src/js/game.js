@@ -1,6 +1,8 @@
-import { DisplayMode, Engine, Color } from 'excalibur';
+import { DisplayMode, Engine, Color, Vector } from 'excalibur';
 import { Resources, ResourceLoader } from './resources.js';
 import { MapScene } from './mapScene.js';
+import { FightScene } from './fightscene.js';
+import { Boss } from './boss.js';
 
 class Game extends Engine {
     constructor() {
@@ -11,11 +13,17 @@ class Game extends Engine {
             backgroundColor: Color.fromHex('#edcda7')
         });
 
-        this.start(ResourceLoader).then(() => this.goToScene('map'));
+        this.start(ResourceLoader).then(() => {
+            this.add('map', new MapScene());
+            this.add('fight', new FightScene(this, new Vector(720, 380), Boss, new Vector(720, 380)));
+
+            this.goToScene('map');
+        });
     }
 
     onInitialize() {
         this.add('map', new MapScene());
+        this.add('fight', new FightScene(this, new Vector(720, 380), Boss, new Vector(720, 380)));
     }
 }
 

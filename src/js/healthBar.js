@@ -23,7 +23,7 @@ export class Healthbar extends ScreenElement {
             height: 5, // Height of the health bar
             anchor: Vector.Zero
         });
-        this.background.z = 666;
+        this.background.z = 6;
         this.addChild(this.background);
 
         this.healthbar = new Actor({

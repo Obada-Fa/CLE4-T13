@@ -23,12 +23,12 @@ class MapScene extends Scene {
         const maxY = 1000;
 
         // Spawn the player
-        const player = new Player(engine.drawWidth / 2, engine.drawHeight / 2, minX, minY, maxX, maxY);
-        this.add(player);
+        this.player = new Player(engine.drawWidth / 2, engine.drawHeight / 2, minX, minY, maxX, maxY);
+        this.add(this.player);
 
         // Adjust camera to follow the player
-        engine.currentScene.camera.strategy.lockToActor(player);
-        engine.currentScene.camera.strategy.elasticToActor(player, 0.5, 0.5);
+        engine.currentScene.camera.strategy.lockToActor(this.player);
+        engine.currentScene.camera.strategy.elasticToActor(this.player, 0.5, 0.5);
 
         // Prevent the camera from showing outside the map
         engine.currentScene.camera.strategy.limitCameraBounds({
@@ -44,6 +44,17 @@ class MapScene extends Scene {
         const zoom = Math.min(zoomX, zoomY) * 7; // Adjust the multiplier as needed
 
         engine.currentScene.camera.zoom = zoom;
+    }
+
+    onPreUpdate(engine, delta) {
+        // Check if the player has reached the target position
+        const targetPosition = new Vector(90, 1000);
+        const distance = this.player.pos.distance(targetPosition);
+
+        if (distance < 50) { // Allow some tolerance for the position
+            // Switch to the fighting scene
+            engine.goToScene('fight');
+        }
     }
 
     onActivate(ctx) {
