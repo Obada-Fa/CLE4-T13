@@ -14,7 +14,16 @@ const Resources = {
   PurpleTable: new ImageSource("/map/purpletable.png"),
   RedTable: new ImageSource("/map/redtable.png"),
   Tree: new ImageSource("/map/tree.png"),
-  Sewer: new ImageSource("/images/sewerBG.png")
+  Sewer: new ImageSource("/images/sewerBG.png"),
+  Cafe: new ImageSource("/map/coffeeshop.png"),
+  DoubleLamp: new ImageSource("/map/double lamp.png"),
+  Fountain: new ImageSource("/map/fountain.png"),
+  BendLamp: new ImageSource("/map/gay lamp.png"),
+  LampLeft: new ImageSource("/map/lamp left.png"),
+  LampRight: new ImageSource("/map/lamp right.png"),
+  MarketBlue: new ImageSource("/map/market-blue.png"),
+  MarketRed: new ImageSource("/map/market-red.png"),
+  Shop: new ImageSource("/map/shop1.png"),
 };
 
 const ResourceLoader = new Loader();

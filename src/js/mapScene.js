@@ -1,7 +1,15 @@
 import { Scene, Actor, Vector, Sprite } from "excalibur";
 import { Resources } from "./resources.js";
 import { Player } from "./Player.js";
-import { Bench, BlueTable, LimeTable } from "./mapdecoration.js";
+import {
+  Bench,
+  Tree,
+  BlueTable,
+  LimeTable,
+  PinkTable,
+  PurpleTable,
+  RedTable,
+} from "./mapdecoration.js";
 
 class MapScene extends Scene {
   onInitialize(engine) {
@@ -19,9 +27,9 @@ class MapScene extends Scene {
 
     // Define map boundaries
     const minX = -50;
-        const minY = -150;
-        const maxX = 1600;
-        const maxY = 1000;
+    const minY = -150;
+    const maxX = 1600;
+    const maxY = 1000;
 
     // Spawn the player
     this.player = new Player(
@@ -51,10 +59,16 @@ class MapScene extends Scene {
     const zoomY = engine.drawHeight / map.height;
     const zoom = Math.min(zoomX, zoomY) * 7; // Adjust the multiplier as needed
 
-    engine.currentScene.camera.zoom = zoom;
+    // engine.currentScene.camera.zoom = zoom;
 
     // Add map decorations
     const benchPositions = [
+      { x: 350, y: 345 },
+      { x: 540, y: 345 },
+      { x: 625, y: 345 },
+      { x: 825, y: 345 },
+      { x: 925, y: 345 },
+      { x: 350, y: 1100 },
       { x: 590, y: 1100 },
       { x: 1150, y: 1100 },
       { x: 1025, y: 1100 },
@@ -71,9 +85,43 @@ class MapScene extends Scene {
       this.add(bench);
     });
 
+    const treePositions = [
+      { x: 440, y: 300 },
+      { x: 720, y: 300 },
+      { x: 1000, y: 300 },
+      { x: 133, y: 380 },
+      { x: 110, y: 620 },
+      { x: 110, y: 795 },
+      { x: 300, y: 765 },
+      { x: 520, y: 1050 },
+      { x: 935, y: 1050 },
+      { x: 1225, y: 1050 },
+      { x: 1600, y: 1050 },
+      { x: 1480, y: 835 },
+      { x: 1310, y: 835 },
+      { x: 1480, y: 580 },
+      { x: 1310, y: 580 },
+      { x: 635, y: 675 },
+      { x: 905, y: 460 },
+      { x: 1220, y: 50 },
+      { x: 1480, y: 835 },
+      { x: 1495, y: -50 },
+      { x: 1600, y: 110 },
+      { x: -55, y: 33 },
+      { x: -150, y: 365 },
+      { x: -150, y: 595 },
+      { x: -200, y: 1000 },
+      { x: -10, y: 1050 },
+    ];
+
+    treePositions.forEach((pos) => {
+      const tree = new Tree(pos.x, pos.y);
+      this.add(tree);
+    });
+
     const blueTablePositions = [
-      { x: 300, y: 400 },
-      { x: 600, y: 800 },
+      { x: 400, y: 20 },
+      { x: 900, y: -45 },
     ];
 
     blueTablePositions.forEach((pos) => {
@@ -82,14 +130,38 @@ class MapScene extends Scene {
     });
 
     const limeTablePositions = [
-      { x: 150, y: 500 },
-      { x: 450, y: 650 },
+      { x: 535, y: -45 },
+      { x: 850, y: 20 },
     ];
 
     limeTablePositions.forEach((pos) => {
       const limeTable = new LimeTable(pos.x, pos.y);
       this.add(limeTable);
     });
+
+    const purpleTablePositions = [
+      { x: 440, y: -45 },
+      { x: 1040, y: 20 },
+    ];
+
+    purpleTablePositions.forEach((pos) => {
+      const purpleTable = new PurpleTable(pos.x, pos.y);
+      this.add(purpleTable);
+    });
+
+    const pinkTablePositions = [
+      { x: 500, y: 20 },
+      { x: 950, y: 20 },
+      { x: 800, y: -45 },
+    ];
+
+    pinkTablePositions.forEach((pos) => {
+      const pinkTable = new PinkTable(pos.x, pos.y);
+      this.add(pinkTable);
+    });
+
+    const redTable = new RedTable(985, -45);
+    this.add(redTable);
   }
 
   onPreUpdate(engine, delta) {
