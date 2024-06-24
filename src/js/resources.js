@@ -14,7 +14,8 @@ const Resources = {
   PurpleTable: new ImageSource("/map/purpletable.png"),
   RedTable: new ImageSource("/map/redtable.png"),
   Tree: new ImageSource("/map/tree.png"),
-  Sewer: new ImageSource("/images/sewerBG.png")
+  Sewer: new ImageSource("/images/sewerBG.png"),
+  TitleBackground: new ImageSource('/images/Titlescreen.png')
 };
 
 const ResourceLoader = new Loader();

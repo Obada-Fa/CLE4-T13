@@ -3,6 +3,7 @@ import { Resources, ResourceLoader } from './resources.js';
 import { MapScene } from './mapScene.js';
 import { SewerFightScene } from './sewerscene.js';
 import { Boss } from './boss.js';
+import { TitleScreen } from './titlescreen.js'; // Import TitleScreen
 
 class Game extends Engine {
     constructor() {
@@ -14,10 +15,11 @@ class Game extends Engine {
         });
 
         this.start(ResourceLoader).then(() => {
+            this.add('title', new TitleScreen()); // Add TitleScreen
             this.add('map', new MapScene());
             this.add('fight', new SewerFightScene(this, new Vector(720, 380), Boss, new Vector(720, 380)));
 
-            this.goToScene('map');
+            this.goToScene('title'); // Start with the title screen
         });
     }
 

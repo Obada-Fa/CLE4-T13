@@ -50,6 +50,10 @@ class Player extends Actor {
         this.addChild(this.healthBar); // Add health bar as a child to the player
 
         this.isInFightScene = false; // Flag to check if player is in fighting scene
+        this.isJumping = false; // Track if player is jumping
+        this.gravity = 1000; // Gravity force
+        this.jumpForce = -600; // Jump force
+        this.verticalVelocity = 0; // Vertical velocity
     }
 
     onInitialize(engine) {
@@ -67,6 +71,9 @@ class Player extends Actor {
             if (evt.key === Input.Keys.Space && this.hasGun) {
                 this.shoot();
             }
+            if (evt.key === Input.Keys.W && this.isInFightScene && !this.isJumping) {
+                this.jump();
+            }
         });
 
         // Delay the health setting to ensure Healthbar is initialized
@@ -81,10 +88,17 @@ class Player extends Actor {
         let moving = false;
 
         if (this.isInFightScene) {
-            if (engine.input.keyboard.isHeld(Input.Keys.W)) {
-                this.vel.y = -600; // Jump
+            this.applyGravity(delta);
+
+            if (engine.input.keyboard.isHeld(Input.Keys.A) || engine.input.keyboard.isHeld(Input.Keys.ArrowLeft)) {
+                this.vel.x = -400;
                 moving = true;
-                this.facingDirection = 'up';
+                this.facingDirection = 'left';
+            }
+            if (engine.input.keyboard.isHeld(Input.Keys.D) || engine.input.keyboard.isHeld(Input.Keys.ArrowRight)) {
+                this.vel.x = 400;
+                moving = true;
+                this.facingDirection = 'right';
             }
         } else {
             if (engine.input.keyboard.isHeld(Input.Keys.W) || engine.input.keyboard.isHeld(Input.Keys.ArrowUp)) {
@@ -92,22 +106,21 @@ class Player extends Actor {
                 moving = true;
                 this.facingDirection = 'up';
             }
-        }
-
-        if (engine.input.keyboard.isHeld(Input.Keys.S) || engine.input.keyboard.isHeld(Input.Keys.ArrowDown)) {
-            this.vel.y = 400;
-            moving = true;
-            this.facingDirection = 'down';
-        }
-        if (engine.input.keyboard.isHeld(Input.Keys.A) || engine.input.keyboard.isHeld(Input.Keys.ArrowLeft)) {
-            this.vel.x = -400;
-            moving = true;
-            this.facingDirection = 'left';
-        }
-        if (engine.input.keyboard.isHeld(Input.Keys.D) || engine.input.keyboard.isHeld(Input.Keys.ArrowRight)) {
-            this.vel.x = 400;
-            moving = true;
-            this.facingDirection = 'right';
+            if (engine.input.keyboard.isHeld(Input.Keys.S) || engine.input.keyboard.isHeld(Input.Keys.ArrowDown)) {
+                this.vel.y = 400;
+                moving = true;
+                this.facingDirection = 'down';
+            }
+            if (engine.input.keyboard.isHeld(Input.Keys.A) || engine.input.keyboard.isHeld(Input.Keys.ArrowLeft)) {
+                this.vel.x = -400;
+                moving = true;
+                this.facingDirection = 'left';
+            }
+            if (engine.input.keyboard.isHeld(Input.Keys.D) || engine.input.keyboard.isHeld(Input.Keys.ArrowRight)) {
+                this.vel.x = 400;
+                moving = true;
+                this.facingDirection = 'right';
+            }
         }
 
         if (moving) {
@@ -121,8 +134,26 @@ class Player extends Actor {
         }
     }
 
+    applyGravity(delta) {
+        this.verticalVelocity += this.gravity * (delta / 1000);
+        this.pos.y += this.verticalVelocity * (delta / 1000);
+
+        if (this.pos.y >= this.maxY - this.height * this.scale.y / 2) {
+            this.pos.y = this.maxY - this.height * this.scale.y / 2;
+            this.verticalVelocity = 0;
+            this.isJumping = false;
+        }
+    }
+
+    jump() {
+        if (!this.isJumping) {
+            this.verticalVelocity = this.jumpForce;
+            this.isJumping = true;
+        }
+    }
+
     _updateAnimation() {
-        if (this.isInFightScene) {
+        if (this.isInFightScene && this.isJumping) {
             if (this.facingDirection === 'left' || this.facingDirection === 'right') {
                 this.graphics.use(this.animations.left); // Use left animation for jumping
             }
