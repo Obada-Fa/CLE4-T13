@@ -23,6 +23,7 @@ class Player extends Actor {
         });
 
         this.scale = new Vector(0.2, 0.2);
+        this.z = 4;
 
         this.animations = {
             left: Animation.fromSpriteSheet(playerSheet, [0, 1, 2, 3], 200),
