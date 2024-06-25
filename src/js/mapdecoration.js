@@ -3,7 +3,7 @@ import { Resources } from "./resources";
 
 export class Bench extends MapContents {
   constructor(x, y) {
-    super(x, y);
+    super(x, y, Resources.Bench.width, Resources.Bench.height);
   }
 
   onInitialize(engine) {
@@ -15,7 +15,7 @@ export class Bench extends MapContents {
 
 export class BlueTable extends MapContents {
   constructor(x, y) {
-    super(x, y);
+    super(x, y, Resources.BlueTable.width, Resources.BlueTable.height);
   }
 
   onInitialize(engine) {
@@ -26,7 +26,7 @@ export class BlueTable extends MapContents {
 
 export class LimeTable extends MapContents {
   constructor(x, y) {
-    super(x, y);
+    super(x, y, Resources.LimeTable.width, Resources.LimeTable.height);
   }
 
   onInitialize(engine) {
@@ -37,7 +37,7 @@ export class LimeTable extends MapContents {
 
 export class PinkTable extends MapContents {
   constructor(x, y) {
-    super(x, y);
+    super(x, y, Resources.PinkTable.width, Resources.PinkTable.height);
   }
 
   onInitialize(engine) {
@@ -48,7 +48,7 @@ export class PinkTable extends MapContents {
 
 export class PurpleTable extends MapContents {
   constructor(x, y) {
-    super(x, y);
+    super(x, y, Resources.PurpleTable.width, Resources.PurpleTable.height);
   }
 
   onInitialize(engine) {
@@ -59,7 +59,7 @@ export class PurpleTable extends MapContents {
 
 export class RedTable extends MapContents {
   constructor(x, y) {
-    super(x, y);
+    super(x, y, Resources.RedTable.width, Resources.RedTable.height);
   }
 
   onInitialize(engine) {
@@ -70,7 +70,7 @@ export class RedTable extends MapContents {
 
 export class Tree extends MapContents {
   constructor(x, y) {
-    super(x, y);
+    super(x, y, Resources.Tree.width, Resources.Tree.height);
   }
 
   onInitialize(engine) {
@@ -83,7 +83,7 @@ export class Tree extends MapContents {
 
 export class DoubleLamp extends MapContents {
   constructor(x, y) {
-    super(x, y);
+    super(x, y, Resources.DoubleLamp.width, Resources.DoubleLamp.height);
   }
 
   onInitialize(engine) {
@@ -94,7 +94,7 @@ export class DoubleLamp extends MapContents {
 
 export class Fountain extends MapContents {
   constructor(x, y) {
-    super(x, y);
+    super(x, y, Resources.Fountain.width, Resources.Fountain.height);
   }
 
   onInitialize(engine) {
@@ -103,9 +103,10 @@ export class Fountain extends MapContents {
     this.graphics.use(Resources.Fountain.toSprite());
   }
 }
+
 export class BendLamp extends MapContents {
   constructor(x, y) {
-    super(x, y);
+    super(x, y, Resources.BendLamp.width, Resources.BendLamp.height);
   }
 
   onInitialize(engine) {
@@ -113,9 +114,10 @@ export class BendLamp extends MapContents {
     this.graphics.use(Resources.BendLamp.toSprite());
   }
 }
+
 export class LampLeft extends MapContents {
   constructor(x, y) {
-    super(x, y);
+    super(x, y, Resources.LampLeft.width, Resources.LampLeft.height);
   }
 
   onInitialize(engine) {
@@ -126,7 +128,7 @@ export class LampLeft extends MapContents {
 
 export class LampRight extends MapContents {
   constructor(x, y) {
-    super(x, y);
+    super(x, y, Resources.LampRight.width, Resources.LampRight.height);
   }
 
   onInitialize(engine) {
@@ -137,7 +139,7 @@ export class LampRight extends MapContents {
 
 export class MarketBlue extends MapContents {
   constructor(x, y) {
-    super(x, y);
+    super(x, y, Resources.MarketBlue.width, Resources.MarketBlue.height);
   }
 
   onInitialize(engine) {
@@ -148,7 +150,7 @@ export class MarketBlue extends MapContents {
 
 export class MarketRed extends MapContents {
   constructor(x, y) {
-    super(x, y);
+    super(x, y, Resources.MarketRed.width, Resources.MarketRed.height);
   }
 
   onInitialize(engine) {
@@ -159,7 +161,7 @@ export class MarketRed extends MapContents {
 
 export class Shop extends MapContents {
   constructor(x, y) {
-    super(x, y);
+    super(x, y, Resources.Shop.width, Resources.Shop.height);
   }
 
   onInitialize(engine) {
@@ -171,7 +173,7 @@ export class Shop extends MapContents {
 
 export class Cafe extends MapContents {
   constructor(x, y) {
-    super(x, y);
+    super(x, y, Resources.Cafe.width, Resources.Cafe.height);
   }
 
   onInitialize(engine) {

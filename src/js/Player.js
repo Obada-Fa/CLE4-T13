@@ -20,7 +20,7 @@ class Player extends Actor {
       height: 316,
       collisionType: CollisionType.Active,
     });
-
+    this.z = 15;
     const playerSheet = SpriteSheet.fromImageSource({
       image: Resources.Player,
       grid: {

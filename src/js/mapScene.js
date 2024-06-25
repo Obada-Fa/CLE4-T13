@@ -11,11 +11,7 @@ import {
   RedTable,
   Shop,
   Cafe,
-  DoubleLamp,
   Fountain,
-  BendLamp,
-  LampLeft,
-  LampRight,
   MarketBlue,
   MarketRed,
 } from "./mapdecoration.js";
@@ -27,18 +23,18 @@ class MapScene extends Scene {
     // Load the map
     const map = new Actor({
       pos: new Vector(engine.drawWidth / 2, engine.drawHeight / 2),
-      width: 3840,
-      height: 3968,
+      width: Resources.Map.width,
+      height: Resources.Map.height,
     });
     const mapSprite = Sprite.from(Resources.Map);
     map.graphics.use(mapSprite);
     this.add(map);
 
     // Define map boundaries
-    const minX = -50;
-    const minY = -150;
-    const maxX = 1600;
-    const maxY = 1000;
+    const minX = 0;
+    const minY = 0;
+    const maxX = map.width;
+    const maxY = map.height;
 
     // Spawn the player
     this.player = new Player(
