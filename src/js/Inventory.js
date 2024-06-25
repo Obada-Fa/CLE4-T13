@@ -87,11 +87,12 @@ class Bullet extends Actor {
             pos: new Vector(x, y),
             width: 10,
             height: 10,
-            color: Color.Yellow,
             collisionType: CollisionType.Passive
         });
         this.vel = direction.scale(300); // Adjust bullet speed as needed
-        this.z = 1;
+        this.z = 666;
+        this.graphics.use(Resources.Bullet.toSprite());
+        this.scale = new Vector(0.2,0.2)
     }
 
     onInitialize(engine) {
@@ -101,7 +102,7 @@ class Bullet extends Actor {
     onPreUpdate(engine, delta) {
         // Remove the bullet if it goes off screen
         if (this.pos.x < 0 || this.pos.x > engine.drawWidth || this.pos.y < 0 || this.pos.y > engine.drawHeight) {
-            this.kill();
+            // this.kill();
         }
     }
 }

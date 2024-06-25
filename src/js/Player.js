@@ -79,7 +79,7 @@ class Player extends Actor {
     });
 
     engine.input.keyboard.on("press", (evt) => {
-      if (evt.key === Input.Keys.Space && this.hasGun) {
+      if (evt.key === Input.Keys.Space) {
         this.shoot();
       }
       if (evt.key === Input.Keys.W && this.isInFightScene && !this.isJumping) {

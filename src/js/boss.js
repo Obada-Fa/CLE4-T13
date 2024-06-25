@@ -3,6 +3,8 @@ import { Resources } from './resources.js';
 import { Bullet } from './Inventory.js'; // Ensure you import the Bullet class
 
 class Boss extends Actor {
+    isDefeated = false;
+
     constructor(x, y) {
         super({
             pos: new Vector(x, y),
@@ -52,9 +54,14 @@ class Boss extends Actor {
 
     takeDamage(amount) {
         this.currentHealth = Math.max(0, this.currentHealth - amount);
-        if (this.currentHealth <= 0) {
+        if (this.currentHealth <= 0 && !this.isDefeated) {
+            this.isDefeated = true;
             this.kill(); // Remove the boss if health is depleted
         }
+    }
+
+    isKilled() {
+        return this.isDefeated;
     }
 
     draw(ctx) {

@@ -1,4 +1,5 @@
 import { ImageSource, Loader } from "excalibur";
+import { Bullet, Helmet } from "./Inventory";
 import { Helmet } from "./Inventory";
 import { TrashMonster } from "./trashmonster";
 
@@ -29,6 +30,7 @@ const Resources = {
   MarketRed: new ImageSource("/map/market-red.png"),
   Shop: new ImageSource("/map/shop1.png"),
   TitleBackground: new ImageSource("/images/Titlescreen.png"),
+  Bullet: new ImageSource("/images/bullet.png"),
 };
 
 const ResourceLoader = new Loader();
