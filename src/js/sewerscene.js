@@ -57,8 +57,8 @@ class SewerFightScene extends FightScene {
 
         const enemy = this.actors.find(actor => actor instanceof this.enemyClass);
         if (enemy) {
-            enemy.pos.y = engine.drawHeight / 2; // Align y position
-            enemy.pos.x = engine.drawWidth - player.pos.x; // Opposite x position
+            enemy.pos.y = 630; // Align y position
+            enemy.pos.x = 1000; // Opposite x position
         }
     }
 
