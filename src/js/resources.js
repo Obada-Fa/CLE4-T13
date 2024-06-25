@@ -24,6 +24,7 @@ const Resources = {
   MarketBlue: new ImageSource("/map/market-blue.png"),
   MarketRed: new ImageSource("/map/market-red.png"),
   Shop: new ImageSource("/map/shop1.png"),
+  TitleBackground: new ImageSource("/images/Titlescreen.png"),
 };
 
 const ResourceLoader = new Loader();

@@ -9,6 +9,15 @@ import {
   PinkTable,
   PurpleTable,
   RedTable,
+  Shop,
+  Cafe,
+  DoubleLamp,
+  Fountain,
+  BendLamp,
+  LampLeft,
+  LampRight,
+  MarketBlue,
+  MarketRed,
 } from "./mapdecoration.js";
 
 class MapScene extends Scene {
@@ -160,8 +169,47 @@ class MapScene extends Scene {
       this.add(pinkTable);
     });
 
+    const redMarketPositions = [
+      { x: 360, y: 595 },
+      { x: 710, y: 240 },
+      { x: 825, y: 240 },
+      { x: 865, y: 750 },
+      { x: 855, y: 930 },
+      { x: 400, y: 930 },
+      { x: 265, y: 930 },
+    ];
+
+    redMarketPositions.forEach((pos) => {
+      const redMarket = new MarketRed(pos.x, pos.y);
+      this.add(redMarket);
+    });
+
+    const blueMarketPositions = [
+      { x: 470, y: 595 },
+      { x: 520, y: 240 },
+      { x: 620, y: 240 },
+      { x: 720, y: 750 },
+      { x: 755, y: 930 },
+      { x: 665, y: 930 },
+      { x: 570, y: 930 },
+    ];
+
+    blueMarketPositions.forEach((pos) => {
+      const blueMarket = new MarketBlue(pos.x, pos.y);
+      this.add(blueMarket);
+    });
+
     const redTable = new RedTable(985, -45);
     this.add(redTable);
+
+    const shop = new Shop(975, -350);
+    this.add(shop);
+
+    const cafe = new Cafe(570, -310);
+    this.add(cafe);
+
+    const fountain = new Fountain(1400, 730);
+    this.add(fountain);
   }
 
   onPreUpdate(engine, delta) {

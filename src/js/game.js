@@ -1,29 +1,39 @@
-import { DisplayMode, Engine, Color, Vector } from 'excalibur';
-import { Resources, ResourceLoader } from './resources.js';
-import { MapScene } from './mapScene.js';
-import { SewerFightScene } from './sewerscene.js';
-import { Boss } from './boss.js';
+import { DisplayMode, Engine, Color, Vector } from "excalibur";
+import { Resources, ResourceLoader } from "./resources.js";
+import { MapScene } from "./mapScene.js";
+import { SewerFightScene } from "./sewerscene.js";
+import { Boss } from "./boss.js";
+import { TitleScreen } from "./titlescreen.js"; // Import TitleScreen
 
 class Game extends Engine {
-    constructor() {
-        super({
-            width: 1440,
-            height: 760,
-            displayMode: DisplayMode.FitScreen,
-            backgroundColor: Color.fromHex('#edcda7')
-        });
+  constructor() {
+    super({
+      width: 1440,
+      height: 760,
+      displayMode: DisplayMode.FitScreen,
+      backgroundColor: Color.fromHex("#edcda7"),
+    });
 
-        this.start(ResourceLoader).then(() => {
-            this.add('map', new MapScene());
-            this.add('fight', new SewerFightScene(this, new Vector(720, 380), Boss, new Vector(720, 380)));
+    this.start(ResourceLoader).then(() => {
+      this.add("title", new TitleScreen()); // Add TitleScreen
+      this.add("map", new MapScene());
+      this.add(
+        "fight",
+        new SewerFightScene(
+          this,
+          new Vector(720, 380),
+          Boss,
+          new Vector(720, 380)
+        )
+      );
 
-            this.goToScene('map');
-        });
-    }
+      this.goToScene("title"); // Start with the title screen
+    });
+  }
 
-    onInitialize() {
-        // Initialization code if needed
-    }
+  onInitialize() {
+    // Initialization code if needed
+  }
 }
 
 new Game();

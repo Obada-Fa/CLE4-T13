@@ -75,6 +75,7 @@ export class Tree extends MapContents {
 
   onInitialize(engine) {
     super.onInitialize(engine);
+    this.z = 10;
     this.scale.setTo(2, 2);
     this.graphics.use(Resources.Tree.toSprite());
   }
@@ -98,6 +99,7 @@ export class Fountain extends MapContents {
 
   onInitialize(engine) {
     super.onInitialize(engine);
+    this.scale.setTo(1.2, 1.2);
     this.graphics.use(Resources.Fountain.toSprite());
   }
 }
@@ -162,6 +164,18 @@ export class Shop extends MapContents {
 
   onInitialize(engine) {
     super.onInitialize(engine);
+    this.scale.setTo(1.5, 1.5);
     this.graphics.use(Resources.Shop.toSprite());
+  }
+}
+
+export class Cafe extends MapContents {
+  constructor(x, y) {
+    super(x, y);
+  }
+
+  onInitialize(engine) {
+    super.onInitialize(engine);
+    this.graphics.use(Resources.Cafe.toSprite());
   }
 }
