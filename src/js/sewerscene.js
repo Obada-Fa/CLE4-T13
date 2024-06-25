@@ -3,10 +3,12 @@ import { Resources } from './resources.js';
 import { FightScene } from './fightscene.js';
 import { Player } from './Player.js';
 import { Helmet, Gun, ItemActor } from './Inventory.js'; // Import necessary classes
+import { Boss } from './boss.js'; // Import the Boss class
 
 class SewerFightScene extends FightScene {
     constructor(engine, playerStartPos, enemyClass, enemyStartPos) {
         super(engine, playerStartPos, enemyClass, enemyStartPos);
+        this.bossDefeated = false; // Flag to track if the boss is defeated
     }
 
     setupBackground(engine) {
@@ -22,6 +24,12 @@ class SewerFightScene extends FightScene {
 
     onInitialize(engine) {
         super.onInitialize(engine);
+
+        // Check if the boss is defeated before proceeding
+        if (this.isBossDefeated(engine)) {
+            this.transitionToMainMap(engine);
+            return; // Exit initialization if the boss is defeated
+        }
 
         // Set camera zoom level
         this.setCameraZoom(engine);
@@ -56,14 +64,25 @@ class SewerFightScene extends FightScene {
             });
         }
 
-        const enemy = this.actors.find(actor => actor instanceof this.enemyClass);
-        if (enemy) {
-            enemy.pos.y = 630; // Align y position
-            enemy.pos.x = 1000; // Opposite x position
+        // Ensure a single boss instance
+        this.boss = this.actors.find(actor => actor instanceof Boss);
+        if (!this.boss) {
+            this.boss = new Boss(1000, 650); // Initialize the boss at the given position
+            this.add(this.boss);
+        } else {
+            // Ensure the boss is at the correct position
+            this.boss.pos.x = 1000;
+            this.boss.pos.y = 650;
         }
 
         // Spawn items
         this.spawnItems(engine);
+    }
+
+    isBossDefeated(engine) {
+        // Check if a boss instance exists and if it is defeated
+        const boss = engine.currentScene.actors.find(actor => actor instanceof Boss);
+        return boss ? boss.isDefeated : false;
     }
 
     setCameraZoom(engine) {
@@ -80,6 +99,23 @@ class SewerFightScene extends FightScene {
 
         this.add(helmetActor);
         this.add(gunActor);
+    }
+
+    update(engine, delta) {
+        super.update(engine, delta);
+
+        // Check if the boss is defeated
+        if (this.boss && this.boss.isDefeated) {
+            this.transitionToMainMap(engine);
+        }
+    }
+
+    transitionToMainMap(engine) {
+        // Ensure this logic is executed only once
+        if (this.bossDefeated) return;
+
+        this.bossDefeated = true;
+        engine.goToScene('map');
     }
 }
 
