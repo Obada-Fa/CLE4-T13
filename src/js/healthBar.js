@@ -16,21 +16,21 @@ export class Healthbar extends ScreenElement {
         this.currentHealth = 1;
 
         this.background = new Actor({
-            x: 0,
-            y: 0, // Position above the player
+            x: -75,
+            y: -300, // Position above the player
             color: Color.fromRGB(255, 255, 255, 0.4),
-            width: 50, // Width of the health bar
+            width: 150, // Width of the health bar
             height: 5, // Height of the health bar
             anchor: Vector.Zero
         });
-        this.background.z = 666;
+        this.background.z = 4;
         this.addChild(this.background);
 
         this.healthbar = new Actor({
-            x: 0,
-            y: 0, // Position above the player
+            x: -75,
+            y: -300, // Position above the player
             color: this.colour,
-            width: 50, // Width of the health bar
+            width: 150, // Width of the health bar
             height: 5, // Height of the health bar
             anchor: Vector.Zero
         });
