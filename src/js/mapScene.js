@@ -15,6 +15,9 @@ import {
   MarketBlue,
   MarketRed,
 } from "./mapdecoration.js";
+import { NPC } from "./npc.js";
+import { Vampire } from "./vampirenpc.js";
+import { TrashMonster } from "./trashmonster.js";
 
 class MapScene extends Scene {
   onInitialize(engine) {
@@ -206,6 +209,43 @@ class MapScene extends Scene {
 
     const fountain = new Fountain(1400, 730);
     this.add(fountain);
+
+    // Add NPC
+    const npc = new NPC(1280, 210);
+    this.add(npc);
+
+    const vampire = new Vampire(85, 165);
+    this.add(vampire);
+    // Add TrashMonster
+    const trashMonster = new TrashMonster(175, 885);
+    this.add(trashMonster);
+
+    let collidedWithTrashMonster = false;
+    let collidedWithNPC = false;
+    let collidedWithVampire = false;
+    // Collision detection between player and TrashMonster
+    this.player.on("collisionstart", (event) => {
+      if (event.other === trashMonster) {
+        collidedWithTrashMonster = true;
+      } else if (event.other === npc) {
+        collidedWithNPC = true;
+      } else if (event.other === vampire) {
+        collidedWithVampire = true;
+      }
+    });
+
+    engine.input.keyboard.on("press", (evt) => {
+      if (collidedWithTrashMonster) {
+        // Transition to fight scene for TrashMonster
+        engine.goToScene("fight");
+      } else if (collidedWithNPC) {
+        // Transition to interaction with NPC (assuming "interaction" scene)
+        engine.goToScene("fight");
+      } else if (collidedWithVampire) {
+        // Transition to interaction with NPC (assuming "interaction" scene)
+        engine.goToScene("fight");
+      }
+    });
   }
 
   onPreUpdate(engine, delta) {

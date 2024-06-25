@@ -1,8 +1,12 @@
 import { ImageSource, Loader } from "excalibur";
 import { Helmet } from "./Inventory";
+import { TrashMonster } from "./trashmonster";
 
 const Resources = {
-  Mia: new ImageSource("/images/Mia.png"),
+  TrashMonster: new ImageSource("/images/Trash_monster_spritesheet.png"),
+  Wolf: new ImageSource("/images/wolfnpc.png"),
+  Vampire: new ImageSource("/images/vampir.png"),
+
   Player: new ImageSource("/images/Spritesheet_player.png"),
   Boss: new ImageSource("/images/Trash_monster_spritesheet.png"),
   Helmet: new ImageSource("/images/helmet.png"),

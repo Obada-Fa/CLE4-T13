@@ -1,33 +1,33 @@
 import { Actor, Vector } from "excalibur";
 import { Resources } from "./resources.js";
 
-export class NPC extends Actor {
+class Vampire extends Actor {
   constructor(x, y) {
     super({
       pos: new Vector(x, y),
-      width: 100,
-      height: 150,
+      width: 120,
+      height: 180,
     });
-    console.log("NPC constructor called");
-    this.graphics.use(Resources.Wolf.toSprite()); // Using the same placeholder image
+    console.log("Vampire constructor called");
+    this.graphics.use(Resources.Vampire.toSprite()); // Using a placeholder image for Vampire
     this.startPosition = new Vector(x, y);
-    this.targetPosition = new Vector(x + 120, y); // 50 pixels to the right
+    this.targetPosition = new Vector(x + 150, y); // Move 150 pixels to the right initially
     this.movingToTarget = false; // Start by moving to the start position first (left)
   }
 
   onInitialize(engine) {
-    console.log("NPC onInitialize called");
+    console.log("Vampire onInitialize called");
     this.engine = engine;
-    this.moveDuration = 3000; // Move for 2 seconds to cover 50 pixels at 25 pixels per second
+    this.moveDuration = 4000; // Move for 4 seconds to cover 150 pixels at 37.5 pixels per second
     this.timeSinceLastMove = 0;
     this.updateVelocity();
   }
 
   updateVelocity() {
     if (this.movingToTarget) {
-      this.vel = this.targetPosition.sub(this.pos).normalize().scale(40); // 25 pixels per second
+      this.vel = this.targetPosition.sub(this.pos).normalize().scale(37.5); // 37.5 pixels per second
     } else {
-      this.vel = this.startPosition.sub(this.pos).normalize().scale(40); // 25 pixels per second
+      this.vel = this.startPosition.sub(this.pos).normalize().scale(37.5); // 37.5 pixels per second
     }
   }
 
@@ -40,7 +40,7 @@ export class NPC extends Actor {
       this.updateVelocity();
     }
 
-    // If the NPC has reached its destination, snap to it and reverse direction
+    // If the Vampire has reached its destination, snap to it and reverse direction
     if (this.movingToTarget && this.pos.distance(this.targetPosition) < 1) {
       this.pos = this.targetPosition.clone();
       this.movingToTarget = false;
@@ -55,3 +55,5 @@ export class NPC extends Actor {
     }
   }
 }
+
+export { Vampire };
