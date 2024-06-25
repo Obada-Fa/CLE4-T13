@@ -1,5 +1,5 @@
 import { ImageSource, Loader } from "excalibur";
-import { Helmet } from "./Inventory";
+import { Bullet, Helmet } from "./Inventory";
 
 const Resources = {
   Mia: new ImageSource("/images/Mia.png"),
@@ -25,6 +25,7 @@ const Resources = {
   MarketRed: new ImageSource("/map/market-red.png"),
   Shop: new ImageSource("/map/shop1.png"),
   TitleBackground: new ImageSource("/images/Titlescreen.png"),
+  Bullet: new ImageSource("/images/bullet.png"),
 };
 
 const ResourceLoader = new Loader();

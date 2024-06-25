@@ -2,6 +2,7 @@ import { Actor, Sprite, Vector } from 'excalibur';
 import { Resources } from './resources.js';
 import { FightScene } from './fightscene.js';
 import { Player } from './Player.js';
+import { Helmet, Gun, ItemActor } from './Inventory.js'; // Import necessary classes
 
 class SewerFightScene extends FightScene {
     constructor(engine, playerStartPos, enemyClass, enemyStartPos) {
@@ -60,11 +61,25 @@ class SewerFightScene extends FightScene {
             enemy.pos.y = 630; // Align y position
             enemy.pos.x = 1000; // Opposite x position
         }
+
+        // Spawn items
+        this.spawnItems(engine);
     }
 
     setCameraZoom(engine) {
         // Set the zoom level (e.g., 2.0 for 2x zoom)
         engine.currentScene.camera.zoom = 1.7; // Adjust zoom level as needed
+    }
+
+    spawnItems(engine) {
+        const helmet = new Helmet('Steel Helmet', 5);
+        const gun = new Gun('Pistol', 10);
+
+        const helmetActor = helmet.toActor(300, 650); // Adjust x position as needed
+        const gunActor = gun.toActor(600, 650); // Adjust x position as needed
+
+        this.add(helmetActor);
+        this.add(gunActor);
     }
 }
 
