@@ -1,7 +1,6 @@
 import { ImageSource, Loader } from "excalibur";
-import { Bullet, Helmet } from "./Inventory";
+
 import { Helmet } from "./Inventory";
-import { TrashMonster } from "./trashmonster";
 
 const Resources = {
   TrashMonster: new ImageSource("/images/Trash_monster_spritesheet.png"),
