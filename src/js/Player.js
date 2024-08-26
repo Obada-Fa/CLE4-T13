@@ -18,7 +18,6 @@ class Player extends Actor {
       collisionType: CollisionType.Active,
       width: 300,
       height: 316,
-      collisionType: CollisionType.Active,
     });
     this.z = 15;
     const playerSheet = SpriteSheet.fromImageSource({
@@ -78,15 +77,6 @@ class Player extends Actor {
       }
     });
 
-    engine.input.keyboard.on("press", (evt) => {
-      if (evt.key === Input.Keys.Space) {
-        this.shoot();
-      }
-      if (evt.key === Input.Keys.W && this.isInFightScene && !this.isJumping) {
-        this.jump();
-      }
-    });
-
     // Delay the health setting to ensure Healthbar is initialized
     setTimeout(() => {
       this.healthBar.setHealth(this.currentHealth);
@@ -94,58 +84,51 @@ class Player extends Actor {
   }
 
   onPreUpdate(engine, delta) {
+    if (!engine.input.gamepads.at(0)) {
+      console.log("No gamepad connected");
+      return;
+    }
+
+    const gamepad = engine.input.gamepads.at(0);
+
     this.vel.setTo(0, 0);
 
     let moving = false;
 
+    // Movement Logic
+    const xValue = gamepad.getAxes(Input.Axes.LeftStickX);
+    const yValue = gamepad.getAxes(Input.Axes.LeftStickY);
+
     if (this.isInFightScene) {
       this.applyGravity(delta);
 
-      if (
-        engine.input.keyboard.isHeld(Input.Keys.A) ||
-        engine.input.keyboard.isHeld(Input.Keys.ArrowLeft)
-      ) {
+      if (xValue < -0.5) {
         this.vel.x = -400;
         moving = true;
         this.facingDirection = "left";
       }
-      if (
-        engine.input.keyboard.isHeld(Input.Keys.D) ||
-        engine.input.keyboard.isHeld(Input.Keys.ArrowRight)
-      ) {
+      if (xValue > 0.5) {
         this.vel.x = 400;
         moving = true;
         this.facingDirection = "right";
       }
     } else {
-      if (
-        engine.input.keyboard.isHeld(Input.Keys.W) ||
-        engine.input.keyboard.isHeld(Input.Keys.ArrowUp)
-      ) {
+      if (yValue < -0.5) {
         this.vel.y = -400;
         moving = true;
         this.facingDirection = "up";
       }
-      if (
-        engine.input.keyboard.isHeld(Input.Keys.S) ||
-        engine.input.keyboard.isHeld(Input.Keys.ArrowDown)
-      ) {
+      if (yValue > 0.5) {
         this.vel.y = 400;
         moving = true;
         this.facingDirection = "down";
       }
-      if (
-        engine.input.keyboard.isHeld(Input.Keys.A) ||
-        engine.input.keyboard.isHeld(Input.Keys.ArrowLeft)
-      ) {
+      if (xValue < -0.5) {
         this.vel.x = -400;
         moving = true;
         this.facingDirection = "left";
       }
-      if (
-        engine.input.keyboard.isHeld(Input.Keys.D) ||
-        engine.input.keyboard.isHeld(Input.Keys.ArrowRight)
-      ) {
+      if (xValue > 0.5) {
         this.vel.x = 400;
         moving = true;
         this.facingDirection = "right";
@@ -155,6 +138,20 @@ class Player extends Actor {
     if (moving) {
       this._updateAnimation();
       this._constrainPosition(delta);
+    }
+
+    // Action Logic (Shooting and Jumping)
+    if (gamepad.isButtonPressed(Input.Buttons.Face2)) {
+      // Face2 for shooting
+      this.shoot();
+    }
+    if (
+      gamepad.isButtonPressed(Input.Buttons.Face1) &&
+      this.isInFightScene &&
+      !this.isJumping
+    ) {
+      // Face1 for jumping
+      this.jump();
     }
 
     // Update health bar position
